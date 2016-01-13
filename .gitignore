@@ -14,8 +14,8 @@ results
 npm-debug.log
 node_modules
 
-# config/database.js
-# config/auth.js
+config/database.js
+config/auth.js
 
 .c9
 data
