@@ -11,5 +11,5 @@ It also (will have) has other cool features like.
 
 - [ ] Remove all `render` calls from the router 
 - [ ] Remove `.ejs` views
-- [ ] Add Jasmine unit testing
+- [ ] Add Mocha + supertest + should.js unit testing
 - [ ] Add docs for routes
