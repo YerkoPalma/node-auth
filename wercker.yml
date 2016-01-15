@@ -24,6 +24,12 @@ build:
   steps:
     # A step that executes `npm install` command
     - npm-install
+
+    - script:
+        name: globally install mocha
+        code: |
+          npm install -g mocha
+
     # A step that executes `npm test` command
     - npm-test
 
