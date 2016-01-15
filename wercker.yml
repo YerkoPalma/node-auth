@@ -29,7 +29,11 @@ build:
         name: globally install mocha
         code: |
           npm install -g mocha
-
+    - script:
+        name: show all environment variables
+        code: |
+            env
+            
     # A step that executes `npm test` command
     - npm-test
 
