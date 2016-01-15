@@ -13,7 +13,7 @@ describe('Routing', function() {
   before(function(done) {
     
     //if the test is run inside wercker container use wercker host for mongodb
-    var connectionString = (typeof process.env.MONGO_PORT_27017_TCP_PORT === 'undefined' ? config.test : config.wercker);
+    var connectionString = (typeof process.env.WERCKER === 'undefined' ? config.test : config.wercker);
     
     mongoose.createConnection(connectionString);	//testDB is empty, so connect to passport db for now
     
