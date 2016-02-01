@@ -64,7 +64,7 @@ module.exports = function(app) {
                     }
                   )
                   req.session.user = user; //try to save to session
-                  res.set('X-Session-Token', guid.value); //send the token as a header
+                  res.set('x-session-token', guid.value); //send the token as a header
                   res.json(user.local);
                 }
             });
@@ -110,14 +110,14 @@ module.exports = function(app) {
         var guid = Guid.create();
         new_user.token = guid.value;
         var user = new User(new_user);
-
-        if (!user.validPassword(password)){
+        user.local.password = user.generateHash(password)
+        /*if (!user.validPassword(password)){
           res.status(401);
           res.send({
             code: "003",
             message: "Invalid password, please try again"
           });
-        }
+        }*/
 
         //all fine, save the user
         user.save(function(err){
@@ -130,8 +130,8 @@ module.exports = function(app) {
           }
           //user saved!
           req.session.user = user; //try to save to session
-          res.set('X-Session-Token', guid.value); //send the token as a header
-          res.json(req.user.local);
+          res.set('x-xession-token', guid.value); //send the token as a header
+          res.json(user.local);
         });
       });
 
