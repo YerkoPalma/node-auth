@@ -14,6 +14,7 @@ var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
+var http = require('http');
 
 var configDB = require('./config/database.js');
 
@@ -47,7 +48,12 @@ app.use(function(req, res, next) {
 //require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 require('./app/routes.js')(app);
 
+app.set('port', port);
+app.set('ip', ip);
+
 // launch ======================================================================
-app.listen(port, ip);
+http.createServer(app).listen(app.get('port') ,app.get('ip'), function () {
+    console.log("✔ Express server listening at %s:%d ", app.get('ip'),app.get('port'));
+});
 
 module.exports = app;
