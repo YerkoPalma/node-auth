@@ -4,7 +4,8 @@
 // get all the tools we need
 var express  = require('express');
 var app      = express();
-var port     = process.env.PORT || 8080;
+var port     = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 8080;
+var ip       = process.env.OPENSHIFT_NODEJS_IP || process.env.IP || "127.0.0.1";
 var mongoose = require('mongoose');
 //var passport = require('passport');
 //var flash    = require('connect-flash');
@@ -17,7 +18,7 @@ var session      = require('express-session');
 var configDB = require('./config/database.js');
 
 // configuration ===============================================================
-mongoose.connect(configDB.url); // connect to our database
+mongoose.connect( (typeof process.env.OPENSHIFT_NODEJS_IP !== 'undefined' ? configDB.openshift : configDB.url) ); // connect to our database
 
 //require('./config/passport')(passport); // pass passport for configuration
 
@@ -47,6 +48,6 @@ app.use(function(req, res, next) {
 require('./app/routes.js')(app);
 
 // launch ======================================================================
-app.listen(port, process.env.IP);
+app.listen(port, ip);
 
 module.exports = app;
