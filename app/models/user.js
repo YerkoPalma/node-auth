@@ -1,15 +1,16 @@
 // load the things we need
 var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
+var uniqueValidator = require('mongoose-unique-validator');
 
 // define the schema for our user model
 var userSchema = mongoose.Schema({
 
-    token            : String,
+    token            : { type: String, unique: true },
     local            : {
-        email        : String,
-        username     : String,
-        password     : String
+        email        : { type: String, required: true, unique: true },
+        username     : { type: String, required: true },
+        password     : { type: String, required: true }
     },
     facebook         : {
         id           : String,
@@ -31,6 +32,8 @@ var userSchema = mongoose.Schema({
     }
 
 });
+
+userSchema.plugin(uniqueValidator);
 
 // generating a hash
 userSchema.methods.generateHash = function(password) {
