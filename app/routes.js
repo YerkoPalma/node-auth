@@ -65,7 +65,7 @@ module.exports = function(app) {
                   )
                   req.session.user = user; //try to save to session
                   res.set('x-session-token', guid.value); //send the token as a header
-                  res.json(user.local);
+                  res.json({username: user.local.username, mail: user.local.email});
                 }
             });
         });
@@ -76,10 +76,12 @@ module.exports = function(app) {
       //find the user
       var email = req.body.email;
       var password = req.body.password;
+      var username = req.body.username;
 
       var new_user = {
         local : {
           email: email,
+          username: username,
           password: password
         }
       }
@@ -131,7 +133,7 @@ module.exports = function(app) {
           //user saved!
           req.session.user = user; //try to save to session
           res.set('x-xession-token', guid.value); //send the token as a header
-          res.json(user.local);
+          res.json({username: user.local.username, mail: user.local.email});
         });
       });
 
@@ -176,7 +178,7 @@ module.exports = function(app) {
         }
       }
 
-      res.json(user.local);
+      res.json({username: user.local.username, mail: user.local.email});
     });
 
     app.post('/logout', isLoggedIn, function(req, res){
