@@ -132,7 +132,7 @@ module.exports = function(app) {
           }
           //user saved!
           req.session.user = user; //try to save to session
-          res.set('x-xession-token', guid.value); //send the token as a header
+          res.set('x-session-token', guid.value); //send the token as a header
           res.json({username: user.local.username, mail: user.local.email});
         });
       });
