@@ -11,7 +11,7 @@
     "express-session": "~1.0.0",
     "guid": "0.0.12",
     "method-override": "~1.0.0",
-    "mongoose": "^3.8.1",
+    "mongoose": "^4.2.8",
     "mongoose-unique-validator": "^0.6.2",
     "morgan": "~1.0.0",
     "passport": "~0.1.17",
