@@ -3,14 +3,16 @@ var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
 var uniqueValidator = require('mongoose-unique-validator');
 
+var match = [ /^[a-zA-Z0-9][\w.-]*\@[a-zA-Z0-9][\w.-]*\.[\w]+$/, "el mail {VALUE} es invalido" ];
+
 // define the schema for our user model
 var userSchema = mongoose.Schema({
 
     token            : { type: String, unique: true },
     local            : {
-        email        : { type: String, required: true, unique: true },
+        email        : { type: String, required: true, unique: true, uniqueCaseInsensitive: true, match: match },
         username     : { type: String, required: true },
-        password     : { type: String, required: true }
+        password     : { type: String, required: true, minlength: 5 }
     },
     facebook         : {
         id           : String,
@@ -33,7 +35,7 @@ var userSchema = mongoose.Schema({
 
 });
 
-userSchema.plugin(uniqueValidator);
+userSchema.plugin(uniqueValidator, { message: 'El mail {VALUE} ya existe' });
 
 // generating a hash
 userSchema.methods.generateHash = function(password) {
